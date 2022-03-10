@@ -6,10 +6,8 @@ Circom allows you to generate circuit to proof any matematical statement. The ch
 
 The real challenge of circom is to translate the matematical statement into an executable circuit! 
 
-Q1:
-Construct a circuit using circom that takes a list of numbers input as leaves of a Merkle tree (Note that the numbers will be public inputs) and outputs the Merkle root.
+### Q1:Construct a circuit using circom that takes a list of numbers input as leaves of a Merkle tree (Note that the numbers will be public inputs) and outputs the Merkle root.
 
-A1: 
 - For the merkle tree hash I’ll grab the merkle tree circuit from Tornado Cash Nova: https://github.com/tornadocash/tornado-nova/blob/master/circuits/merkleTree.circom
 - Write the merkleroot circuit in the file `merkletree.circom`
 - Compile the circuit `circom merklertree.circom --r1cs --wasm --sym --c` 
@@ -97,9 +95,7 @@ A1:
 
     If I run `snarkjs groth16 verify verification_key.json public_err.json proof.json` again, I get this error back `[ERROR] snarkJS: Invalid proof` that tells me that I got an invalid proof back
 
-Q2: Now try to generate the proof using a list of 8 numbers. Document any errors (if any) you encounter when increasing the size and explain how you fixed them.
-
-A2:
+### Q2: Now try to generate the proof using a list of 8 numbers. Document any errors (if any) you encounter when increasing the size and explain how you fixed them.
 
 If I create a new input.json file `input2.json` that takes 8 leaves and I try to generate the witness 
 
@@ -128,9 +124,9 @@ To fix it I create a new circuit (in folder Merkletree2). This is basically the 
     Yea! `[INFO]  snarkJS: OK!`. The proof has been verified!
 
 
-Q3: Do we really need zero-knowledge proof for this? Can a publicly verifiable smart contract that computes Merkle root achieve the same? If so, give a scenario where Zero-Knowledge proofs like this might be useful. Are there any technologies implementing this type of proof? Elaborate in 100 words on how they work.
+### Q3: Do we really need zero-knowledge proof for this? Can a publicly verifiable smart contract that computes Merkle root achieve the same? If so, give a scenario where Zero-Knowledge proofs like this might be useful. Are there any technologies implementing this type of proof? Elaborate in 100 words on how they work.
 
-A3: No, we don't need ZKP for computing a merkle root starting from a set of input leaves. There are already smart contracts that can compute a merkle root starting from a set of leaves. Actually creating zero knowledge proof of the merkle tree computations requires a larger amount of computing power than using a smart contract to compute the merkle root.
+No, we don't need ZKP for computing a merkle root starting from a set of input leaves. There are already smart contracts that can compute a merkle root starting from a set of leaves. Actually creating zero knowledge proof of the merkle tree computations requires a larger amount of computing power than using a smart contract to compute the merkle root.
 
 The ZKP application we designed can help in making the verification system more efficient. An example of this application is at the basis of ZK-based rollups applications. Rollups include a large set of transactions inside a merkle tree. Only the root of the tree is then stored on the main-chain but any one would be able to leverage a verifier smart contract to verify that a transaction is included in the merkle tree with higher efficiency.
 
